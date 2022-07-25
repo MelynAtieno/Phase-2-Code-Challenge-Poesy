@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-//const apikey = "http://localhost:8004/poems";
+
 
 
 function NewPoemForm({AddPoem}) {
@@ -22,7 +22,7 @@ function NewPoemForm({AddPoem}) {
       }),
     })
       .then((r) => r.json())
-      .then((newPoem) => AddPoem(newPoem));
+      .then((NewPoem) => AddPoem(NewPoem));
 
     setTitle("");
     setContent("");
