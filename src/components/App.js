@@ -2,16 +2,16 @@ import React, {useState, useEffect} from "react";
 import PoemsContainer from "./PoemsContainer";
 import NewPoemForm from "./NewPoemForm";
 
-let api = "http://localhost:8004/poems"
+//const apikey = "http://localhost:8004/poems"
 
 function App() {
   const [poems, setPoems] = useState([]);
   const [formVisible, setFormVisible] = useState(true);
   const [VisibleFav, setFavoriteVisible] = useState(true);
-  const PoemsToDisplay = poems.filter((poem) => VisibleFav || poem.isFavorite);
+  const poemsToDisplay = poems.filter((poem) => VisibleFav || poem.isFavorite);
 
   useEffect(() => {
-    fetch(api)
+    fetch("http://localhost:8004/poems")
       .then(res => res.json())
       .then(data => setPoems(data))
   }, []);
@@ -31,13 +31,13 @@ function App() {
     ))
   }
 
-  function PoemView() {
-    if (PoemsToDisplay.length === 0 && !VisibleFav) {
+  function renderPoemView() {
+    if (poemsToDisplay.length === 0 && !VisibleFav) {
       return (<h1>You have no favorites added</h1>)
     } else {
       return (
         <PoemsContainer 
-          poems={PoemsToDisplay} 
+          poems={poemsToDisplay} 
           RemovePoem={RemovePoem} 
           AddToFavorites={AddToFavorites}
         />
@@ -49,12 +49,12 @@ function App() {
     <div className="app">
       <div className="sidebar">
         <button onClick={() => setFormVisible(!formVisible)}>Show/hide new poem form</button>
-        {true ? <NewPoemForm AddPoem={AddPoem}/> : null}
+        {formVisible ? <NewPoemForm AddPoem={AddPoem}/> : null}
         <button onClick={() => setFavoriteVisible(!VisibleFav)} >
           Show/hide Favorite Poems
         </button>
       </div>
-      {PoemView()}
+      {renderPoemView()}
     </div>
   );
 }

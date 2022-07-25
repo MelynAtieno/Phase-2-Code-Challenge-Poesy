@@ -1,29 +1,30 @@
 import React, {useState} from "react";
 
-let api = "http://localhost:8004/poems"
+//const apikey = "http://localhost:8004/poems";
 
 function Poem({poem, RemovePoem, AddToFavorites}) {
-  //const {title, content, author} = Poem;
+  const {title, content, author} = poem;
   const [isRead, setIsRead] = useState(false)
 
   function onDeleteClick(e) {
     e.preventDefault();
-    fetch(`${api}/${poem.id}`, {
+    fetch(`http://localhost:8004/poems/${poem.id}`, {
       method: "DELETE",
     });
-    RemovePoem(Poem);
+    RemovePoem(poem);
+    
   }
 
 
   return (
     <div>
-      <h3>Title</h3>
-      <p>Content</p>
+      <h3>{title}</h3>
+      <p>{content}</p>
       <p>
-        <strong>- By Author</strong>
+        <strong>- By {author}:</strong>
       </p>
       <button onClick={() => setIsRead(!isRead)} >
-        Mark as {isRead ? "unread" : "read" }
+        Mark as {isRead ? "Unread" : "Read" }
       </button>
       <button onClick={onDeleteClick} >
         Delete Poem

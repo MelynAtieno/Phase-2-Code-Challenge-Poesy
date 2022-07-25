@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-let api = "http://localhost:8004/poems";
+//const apikey = "http://localhost:8004/poems";
 
 
 function NewPoemForm({AddPoem}) {
@@ -8,9 +8,9 @@ function NewPoemForm({AddPoem}) {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
 
-  function Submit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    fetch(poemAPI, {
+    fetch("http://localhost:8004/poems", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,7 @@ function NewPoemForm({AddPoem}) {
       }),
     })
       .then((r) => r.json())
-      .then((NewPoem) => AddPoem(NewPoem));
+      .then((newPoem) => AddPoem(newPoem));
 
     setTitle("");
     setContent("");
@@ -30,10 +30,10 @@ function NewPoemForm({AddPoem}) {
   }
 
   return (
-    <form className="new-poem-form" onSubmit={Submit}>
+    <form className="new-poem-form" onSubmit={handleSubmit}>
       <input placeholder="Title"  value={title} onChange={(e) => setTitle(e.target.value)} />
       <input placeholder="Author" value={author} onChange={(e) => setAuthor(e.target.value)} />
-      <textarea placeholder="Write your masterpiece here..." rows={10} value={content} onChange={(e) => setAuthor(e.target.value)}/>
+      <textarea placeholder="Write your masterpiece here..." rows={10} value={content} onChange={(e) => setContent(e.target.value)}/>
       <input type="submit" value="Share your masterpiece" />
     </form>
   );

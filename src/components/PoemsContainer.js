@@ -10,8 +10,8 @@ function PoemsContainer({poems, RemovePoem, AddToFavorites}) {
           <Poem 
             key={poem.id} 
             poem={poem} 
-            removePoem={RemovePoem} 
-            addToFavorites={AddToFavorites} 
+            RemovePoem={RemovePoem} 
+            AddToFavorites={AddToFavorites} 
           />
         )
         })}
